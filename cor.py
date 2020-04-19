@@ -32,5 +32,11 @@ class Cor():
             np.random.shuffle(array)
             return array
             
-cor = Cor(1, 5)
-cor.generate()
+def main():
+    number = int(input("number of points:"))
+    dimension = int(input("dimension:"))
+    cor = Cor(number, dimension)
+    cor.generate()
+
+if __name__ == "__main__":
+    main()

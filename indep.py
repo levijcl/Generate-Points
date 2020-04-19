@@ -11,6 +11,12 @@ class Indep():
         array2D = np.random.rand(self.number, self.dimension)
         np.savetxt('indep' + str(self.dimension) + 'D-' + str(self.number) + '.txt', array2D, fmt='%f')
 
+def main():
+    number = int(input("number of points:"))
+    dimension = int(input("dimension:"))
+    indep = Indep(number, dimension)
+    indep.generate()
 
-indep = Indep(1000000, 5)
-indep.generate()
+if __name__ == "__main__":
+    main()
+

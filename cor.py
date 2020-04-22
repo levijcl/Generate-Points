@@ -22,13 +22,18 @@ class Cor():
     def __generate_point(self, normal_distribution_value):
             array = np.empty(self.dimension, dtype=float)
             max_value = normal_distribution_value
+            sum = 0
             count = 0
-            for i in range (0, self.dimension - 1):
+            while count < self.dimension - 1:
                 random_value = np.random.random_sample() * max_value
-                array[i] = (random_value)
-                max_value -= random_value
-                count += random_value
-            array[self.dimension - 1] = normal_distribution_value - count
+                if random_value < 1:
+                    array[count] = (random_value)
+                    max_value -= random_value
+                    sum += random_value
+                    count += 1
+                else:
+                    continue
+            array[self.dimension - 1] = normal_distribution_value - sum
             np.random.shuffle(array)
             return array
             

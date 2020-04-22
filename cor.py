@@ -7,7 +7,7 @@ class Cor():
         self.number = number
         self.dimension = dimension
         self.mean = mean or (math.pow(dimension, 0.5)) / 2
-        self.sigma= sigma or 0.1
+        self.sigma= sigma or 0.05
     
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)

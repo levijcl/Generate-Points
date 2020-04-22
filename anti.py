@@ -17,7 +17,7 @@ class Anti():
         array2D = np.empty((self.number, self.dimension), dtype=float)
         for i in range(0, self.number):
             array2D[i] = self.__generate_point(noraml_distribution_arr[i])
-        np.savetxt('cor' + str(self.dimension) + 'D-' + str(self.number) + '.txt', array2D, fmt='%f')
+        np.savetxt('anti' + str(self.dimension) + 'D-' + str(self.number) + '.txt', array2D, fmt='%f')
         return array2D
     
     def __generate_point(self, normal_distribution_value):

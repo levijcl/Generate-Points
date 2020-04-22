@@ -21,11 +21,11 @@ class Anti():
         return array2D
     
     def __generate_point(self, normal_distribution_value):
-        array = np.empty(self.dimension, dtype=float)
-        max_value = normal_distribution_value
-        sum = 0
-        count = 0
         while True:
+            array = np.empty(self.dimension, dtype=float)
+            max_value = normal_distribution_value
+            sum = 0
+            count = 0
             while count < self.dimension - 1:
                 random_value = np.random.random_sample() * max_value
                 if random_value < 1:

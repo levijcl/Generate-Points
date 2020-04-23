@@ -1,13 +1,14 @@
 import numpy as np
 import math
 import random
+from matplotlib import pyplot as plt
 
 class Anti():
     def __init__(self, number, dimension, mean=None, sigma=None):
         self.number = number
         self.dimension = dimension
         self.mean = mean or (math.pow(dimension, 0.5)) / 2
-        self.sigma= sigma or 0.005
+        self.sigma= sigma or 0.07
     
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -44,7 +45,10 @@ def main():
     number = int(input("number of points:"))
     dimension = int(input("dimension:"))
     anti = Anti(number, dimension)
-    anti.generate()
+    data = anti.generate()
+    x, y = np.array(data).T
+    plt.scatter(x,y)
+    plt.show()
 
 if __name__ == "__main__":
     main()

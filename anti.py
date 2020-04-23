@@ -23,7 +23,7 @@ class Anti():
     def __generate_point(self, normal_distribution_value):
         while True:
             array = np.empty(self.dimension, dtype=float)
-            max_value = normal_distribution_value
+            max_value = normal_distribution_value * math.pow(self.dimension, 0.5)
             sum = 0
             count = 0
             while count < self.dimension - 1:
@@ -36,7 +36,7 @@ class Anti():
                 else:
                     continue
             array[self.dimension - 1] = normal_distribution_value - sum
-            if np.all(array < 1):
+            if np.all(array < 1) and np.all(array >= 0):
                 break
         return array
             

@@ -38,16 +38,21 @@ class Cor():
             max_value = normal_distribution_value * math.pow(self.dimension, 0.5)
             sum = 0
             count = 0
+            print("max_value", max_value)
             while count < self.dimension - 1:
                 random_value = np.random.normal(max_value / self.dimension, 0.05, 1)
+                print("random_value", random_value)
                 if random_value < 1:
                     array[count] = random_value
                     sum += random_value
                     count += 1
                 else:
                     continue
-            array[self.dimension - 1] = normal_distribution_value - sum
+            print("sum", sum)
+            array[self.dimension - 1] = max_value - sum
             if np.all(array < 1) and np.all(array >= 0):
+                print(array)
+                print("break")
                 break
         return array
             

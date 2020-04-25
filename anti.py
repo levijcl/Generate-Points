@@ -36,7 +36,7 @@ class Anti():
                     count += 1
                 else:
                     continue
-            array[self.dimension - 1] = normal_distribution_value - sum
+            array[self.dimension - 1] = max_value - sum
             if np.all(array < 1) and np.all(array >= 0):
                 break
         return array
@@ -46,9 +46,9 @@ def main():
     dimension = int(input("dimension:"))
     anti = Anti(number, dimension)
     data = anti.generate()
-    x, y = np.array(data).T
-    plt.scatter(x,y)
-    plt.show()
+    # x, y = np.array(data).T
+    # plt.scatter(x,y)
+    # plt.show()
 
 if __name__ == "__main__":
     main()

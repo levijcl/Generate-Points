@@ -56,7 +56,6 @@ def main():
     dimension = int(input("dimension:"))
     anti = Anti(number, dimension)
     data = anti.generate()
-    plot2D(data)
 
 if __name__ == "__main__":
     main()

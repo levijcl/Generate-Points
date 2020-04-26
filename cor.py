@@ -70,6 +70,5 @@ def main():
     dimension = int(input("dimension:"))
     cor = Cor(number, dimension)
     data = cor.generate()
-    plot2D(data)
 if __name__ == "__main__":
     main()

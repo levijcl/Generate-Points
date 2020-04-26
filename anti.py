@@ -1,17 +1,27 @@
 import numpy as np
 import math
 import random
-from matplotlib import pyplot as plt
+from plot import plot2D
 
 class Anti():
     def __init__(self, number, dimension, mean=None, sigma=None):
         self.number = number
         self.dimension = dimension
-        self.mean = mean or (math.pow(dimension, 0.5)) / 2
+        self.mean = mean or dimension /2 
         self.sigma= sigma or 0.07
     
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
+        while True:
+            if np.all(noraml_distribution_arr > 0) and np.all(noraml_distribution_arr < self.dimension):
+                break
+            sholud_delete = []
+            for index, value in enumerate(noraml_distribution_arr):
+                if value > (self.dimension) or value < 0:
+                    sholud_delete.append(index)
+            noraml_distribution_arr = np.delete(noraml_distribution_arr, sholud_delete)
+            added_noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number - np.size(noraml_distribution_arr))
+            noraml_distribution_arr = np.append(noraml_distribution_arr, added_noraml_distribution_arr)
         for i in noraml_distribution_arr:
             self.__generate_point(i)
 
@@ -24,7 +34,7 @@ class Anti():
     def __generate_point(self, normal_distribution_value):
         while True:
             array = np.empty(self.dimension, dtype=float)
-            max_value = normal_distribution_value * math.pow(self.dimension, 0.5)
+            max_value = normal_distribution_value
             sum = 0
             count = 0
             while count < self.dimension - 1:
@@ -46,9 +56,7 @@ def main():
     dimension = int(input("dimension:"))
     anti = Anti(number, dimension)
     data = anti.generate()
-    # x, y = np.array(data).T
-    # plt.scatter(x,y)
-    # plt.show()
+    plot2D(data)
 
 if __name__ == "__main__":
     main()

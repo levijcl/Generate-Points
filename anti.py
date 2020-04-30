@@ -8,7 +8,7 @@ class Anti():
         self.number = number
         self.dimension = dimension
         self.mean = mean or dimension /2 
-        self.sigma= sigma or 0.07
+        self.sigma= sigma or 0.1
     
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -24,7 +24,6 @@ class Anti():
             noraml_distribution_arr = np.append(noraml_distribution_arr, added_noraml_distribution_arr)
         for i in noraml_distribution_arr:
             self.__generate_point(i)
-
         array2D = np.empty((self.number, self.dimension), dtype=float)
         for i in range(0, self.number):
             array2D[i] = self.__generate_point(noraml_distribution_arr[i])
@@ -40,13 +39,13 @@ class Anti():
             while count < self.dimension - 1:
                 random_value = np.random.random_sample() * max_value
                 if random_value < 1:
-                    array[count] = (random_value)
+                    array[count] = random_value
                     max_value = max_value - random_value
                     sum += random_value
                     count += 1
                 else:
                     continue
-            array[self.dimension - 1] = max_value - sum
+            array[self.dimension - 1] = normal_distribution_value - sum
             if np.all(array < 1) and np.all(array >= 0):
                 break
         return array
@@ -56,7 +55,7 @@ def main():
     dimension = int(input("dimension:"))
     anti = Anti(number, dimension)
     data = anti.generate()
-    plot2D(data)
+    # plot2D(data)
 
 if __name__ == "__main__":
     main()

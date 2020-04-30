@@ -8,7 +8,7 @@ class Cor():
         self.number = number
         self.dimension = dimension
         self.mean = mean or dimension / 2
-        self.sigma= sigma or (math.pow(dimension, 0.5)) / 7
+        self.sigma= sigma or (math.pow(dimension, 0.5)) / 6
 
     def show_normal_distribution(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -53,7 +53,8 @@ class Cor():
             sum = 0
             count = 0
             while count < self.dimension - 1:
-                random_value = np.random.normal(max_value / self.dimension, 0.05, 1)
+                sigma_offset = 1 if max_value / self.dimension > 0.50 else 0
+                random_value = np.random.normal(max_value / self.dimension, abs(sigma_offset - (max_value / self.dimension)) / 8 , 1)
                 if random_value < 1:
                     array[count] = random_value
                     sum += random_value
@@ -70,6 +71,6 @@ def main():
     dimension = int(input("dimension:"))
     cor = Cor(number, dimension)
     data = cor.generate()
-    plot2D(data)
+    # plot2D(data)
 if __name__ == "__main__":
     main()

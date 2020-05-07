@@ -8,7 +8,7 @@ class Anti():
         self.number = number
         self.dimension = dimension
         self.mean = mean or dimension /2 
-        self.sigma= sigma or 0.1
+        self.sigma= sigma or (math.pow(dimension, 0.5)) / 20
     
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)

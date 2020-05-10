@@ -1,7 +1,7 @@
 import numpy as np
 import math
 import random
-from plot import plot2D
+from plot import plot2D, plot3D
 
 class Cor():
     def __init__(self, number, dimension, mean=None, sigma=None):
@@ -54,7 +54,7 @@ class Cor():
             count = 0
             while count < self.dimension - 1:
                 sigma_offset = 1 if max_value / self.dimension > 0.50 else 0
-                random_value = np.random.normal(max_value / self.dimension, abs(sigma_offset - (max_value / self.dimension)) / 8 , 1)
+                random_value = np.random.normal(max_value / self.dimension, abs(sigma_offset - (max_value / self.dimension)) / 7 , 1)
                 if random_value < 1:
                     array[count] = random_value
                     sum += random_value

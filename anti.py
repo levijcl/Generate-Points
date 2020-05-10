@@ -1,7 +1,7 @@
 import numpy as np
 import math
 import random
-from plot import plot2D
+from plot import plot2D, plot3D
 
 class Anti():
     def __init__(self, number, dimension, mean=None, sigma=None):

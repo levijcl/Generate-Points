@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 def plot2D(data):
     x, y = np.array(data).T
-    plt.scatter(x,y)
+    plt.scatter(x,y,s=3)
     plt.show()
 
 def plot3D(data):
@@ -16,7 +16,7 @@ def plot3D(data):
         x.append(point[0])
         y.append(point[1])
         z.append(point[2])
-    ax.scatter(x, y, z)
+    ax.scatter(x, y, z, s=0.5)
     ax.set_xlabel('X Label')
     ax.set_ylabel('Y Label')
     ax.set_zlabel('Z Label')

@@ -33,14 +33,14 @@ class Anti():
     def __generate_point(self, normal_distribution_value):
         while True:
             array = np.empty(self.dimension, dtype=float)
-            max_value = normal_distribution_value
+            max_value = normal_distribution_value / self.dimension
+            sigma_offset = 1 if max_value > 0.50 else 0
             sum = 0
             count = 0
             while count < self.dimension - 1:
-                random_value = np.random.random_sample() * max_value
+                random_value = np.random.random_sample() * abs(sigma_offset - (max_value)) * 2
                 if random_value < 1:
                     array[count] = random_value
-                    max_value = max_value - random_value
                     sum += random_value
                     count += 1
                 else:

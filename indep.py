@@ -18,7 +18,6 @@ def main():
     dimension = int(input("dimension:"))
     indep = Indep(number, dimension)
     data = indep.generate()
-
 if __name__ == "__main__":
     main()
 

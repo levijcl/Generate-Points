@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import random
+from itertools import permutations 
 from plot import plot2D, plot3D
 
 class Anti():
@@ -9,6 +10,8 @@ class Anti():
         self.dimension = dimension
         self.mean = mean or dimension /2 
         self.sigma= sigma or (math.pow(dimension, 0.5)) / 20
+        self.factorial = math.factorial(dimension)
+        self.permutations = list(permutations(range(0, dimension)))
     
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -48,7 +51,14 @@ class Anti():
             array[self.dimension - 1] = normal_distribution_value - sum
             if np.all(array < 1) and np.all(array >= 0):
                 break
-        return array
+        return self.__shuffle(array)
+
+    def __shuffle(self, point_arr):
+        index_permutation = self.permutations[np.random.randint(0, self.factorial)]
+        shuffled_arr = []
+        for i in index_permutation:
+            shuffled_arr.append(point_arr[i])
+        return shuffled_arr
             
 def main():
     number = int(input("number of points:"))

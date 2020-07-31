@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import random
+from itertools import permutations 
 from plot import plot2D, plot3D
 
 class Cor():
@@ -9,6 +10,8 @@ class Cor():
         self.dimension = dimension
         self.mean = mean or dimension / 2
         self.sigma= sigma or dimension / 4
+        self.factorial = math.factorial(dimension)
+        self.permutations = list(permutations(range(0, dimension))) 
 
     def show_normal_distribution(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -64,7 +67,15 @@ class Cor():
             array[self.dimension - 1] = max_value - sum
             if np.all(array < 1) and np.all(array >= 0):
                 break
-        return array
+        return self.__shuffle(array)
+
+    def __shuffle(self, point_arr):
+        index_permutation = self.permutations[np.random.randint(0, self.factorial)]
+        shuffled_arr = []
+        for i in index_permutation:
+            shuffled_arr.append(point_arr[i])
+        return shuffled_arr
+        
             
 def main():
     number = int(input("number of points:"))

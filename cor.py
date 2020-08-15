@@ -1,7 +1,6 @@
 import numpy as np
 import math
 import random
-from itertools import permutations 
 from plot import plot2D, plot3D
 
 class Cor():

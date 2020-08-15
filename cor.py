@@ -11,7 +11,6 @@ class Cor():
         self.mean = mean or dimension / 2
         self.sigma= sigma or dimension / 4
         self.factorial = math.factorial(dimension)
-        self.permutations = list(permutations(range(0, dimension))) 
 
     def show_normal_distribution(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -70,10 +69,21 @@ class Cor():
         return self.__shuffle(array)
 
     def __shuffle(self, point_arr):
-        index_permutation = self.permutations[np.random.randint(0, self.factorial)]
+        rand = np.random.randint(0, self.factorial)
+        order_list = []
         shuffled_arr = []
-        for i in index_permutation:
-            shuffled_arr.append(point_arr[i])
+
+        for i in range(0, self.dimension):
+            order_list.append(i)
+
+        for i in range(0, self.dimension):
+            fac = math.factorial(self.dimension - 1 - i)
+            order = int(rand /fac)
+            point_value = point_arr[order_list[order]]
+            shuffled_arr.append(point_value)
+            order_list.pop(order)
+            rand = rand % fac
+
         return shuffled_arr
         
             

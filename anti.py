@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import random
+from tqdm import tqdm
 from plot import plot2D, plot3D
 
 class Anti():
@@ -10,7 +11,8 @@ class Anti():
         self.mean = mean or dimension /2 
         self.sigma= sigma or (math.pow(dimension, 0.5)) / 20
         self.factorial = math.factorial(dimension)
-    
+        self.bar = tqdm(total=self.number)
+
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
         while True:
@@ -25,6 +27,7 @@ class Anti():
             noraml_distribution_arr = np.append(noraml_distribution_arr, added_noraml_distribution_arr)
         for i in noraml_distribution_arr:
             self.__generate_point(i)
+            self.bar.update(1)
         array2D = np.empty((self.number, self.dimension), dtype=float)
         for i in range(0, self.number):
             array2D[i] = self.__generate_point(noraml_distribution_arr[i])

@@ -11,7 +11,7 @@ class Anti():
         self.mean = mean or dimension /2 
         self.sigma= sigma or (math.pow(dimension, 0.5)) / 20
         self.factorial = math.factorial(dimension)
-        self.bar = tqdm(total=self.number)
+        self.bar = tqdm(total=self.number, desc='Anti')
 
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)

@@ -11,7 +11,7 @@ class Cor():
         self.mean = mean or dimension / 2
         self.sigma= sigma or dimension / 4
         self.factorial = math.factorial(dimension)
-        self.bar = tqdm(total=self.number)
+        self.bar = tqdm(total=self.number, desc='Cor')
 
     def show_normal_distribution(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)

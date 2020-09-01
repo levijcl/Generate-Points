@@ -11,7 +11,7 @@ class Anti():
         self.mean = mean or dimension /2 
         self.sigma= sigma or (math.pow(dimension, 0.5)) / 20
         self.factorial = math.factorial(dimension)
-        self.bar = tqdm(total=self.number, desc='Anti')
+        self.bar = tqdm(total=self.number, desc='Anti' + str(self.dimension))
 
     def generate(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -25,12 +25,11 @@ class Anti():
             noraml_distribution_arr = np.delete(noraml_distribution_arr, sholud_delete)
             added_noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number - np.size(noraml_distribution_arr))
             noraml_distribution_arr = np.append(noraml_distribution_arr, added_noraml_distribution_arr)
-        for i in noraml_distribution_arr:
-            self.__generate_point(i)
-            self.bar.update(1)
+
         array2D = np.empty((self.number, self.dimension), dtype=float)
         for i in range(0, self.number):
             array2D[i] = self.__generate_point(noraml_distribution_arr[i])
+            self.bar.update(1)
         np.savetxt('anti' + str(self.dimension) + 'D-' + str(self.number) + '.txt', array2D, fmt='%f')
         return array2D
     

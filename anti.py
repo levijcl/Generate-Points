@@ -9,7 +9,7 @@ class Anti():
         self.number = number
         self.dimension = dimension
         self.mean = mean or dimension /2 
-        self.sigma= sigma or (math.pow(dimension, 0.5)) / 20
+        self.sigma= sigma or (math.pow(dimension, 0.5)) / 14
         self.factorial = math.factorial(dimension)
         self.bar = tqdm(total=self.number, desc='Anti-' + str(self.dimension))
 

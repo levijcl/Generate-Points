@@ -55,19 +55,38 @@ class Anti():
 
     def __shuffle(self, point_arr):
         rand = np.random.randint(0, self.factorial)
+        point_arr[::-1].sort()
+        write_out = rand
         order_list = []
         shuffled_arr = []
 
-        for i in range(0, self.dimension):
-            order_list.append(i)
-
-        for i in range(0, self.dimension):
-            fac = math.factorial(self.dimension - 1 - i)
-            order = int(rand /fac)
-            point_value = point_arr[order_list[order]]
-            shuffled_arr.append(point_value)
-            order_list.pop(order)
+        for i in range(1, self.dimension):
+            fac = math.factorial(self.dimension - i)
+            order = int(rand / fac)
+            order_list.append(order)
             rand = rand % fac
+        
+        index_order = []
+        pick_order = []
+        for i in range(0, self.dimension):
+            pick_order.append(i)
+        
+        for i in range(0, len(order_list)):
+            index = order_list[i]
+            index_order.append(pick_order[index])
+            pick_order.pop(index)
+
+        ready_to_pop = []
+        for i in range(0, self.dimension):
+            ready_to_pop.append(i)
+
+        for index, item in enumerate(index_order):
+            ready_to_pop.pop(ready_to_pop.index(item))
+
+        index_order.append(ready_to_pop[0])
+
+        for index, value in enumerate(index_order):
+            shuffled_arr.append(point_arr[index_order.index(index)])
 
         return shuffled_arr
             

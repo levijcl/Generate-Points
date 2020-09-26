@@ -50,19 +50,22 @@ class Cor():
     def __generate_point(self, normal_distribution_value):
         while True:
             array = np.empty(self.dimension, dtype=float)
-            max_value = normal_distribution_value
+            value_in_axis = normal_distribution_value / self.dimension
+            boundary = 1 if value_in_axis > 0.50 else 0
+            interval = abs(boundary - value_in_axis)
+            low = boundary if boundary == 0 else value_in_axis - interval
+            high = boundary if boundary == 1 else value_in_axis + interval
             sum = 0
             count = 0
             while count < self.dimension - 1:
-                sigma_offset = 1 if max_value / self.dimension > 0.50 else 0
-                random_value = np.random.normal(max_value / self.dimension, abs(sigma_offset - (max_value / self.dimension)) / 4 , 1)
+                random_value = np.random.uniform(low, high)
                 if random_value < 1:
                     array[count] = random_value
                     sum += random_value
                     count += 1
                 else:
                     continue
-            array[self.dimension - 1] = max_value - sum
+            array[self.dimension - 1] = normal_distribution_value - sum
             if np.all(array < 1) and np.all(array >= 0):
                 break
         return self.__shuffle(array)

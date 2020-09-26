@@ -8,7 +8,7 @@ class Anti():
     def __init__(self, number, dimension, mean=None, sigma=None):
         self.number = number
         self.dimension = dimension
-        self.mean = mean or dimension /2 
+        self.mean = mean or dimension / 2 
         self.sigma= sigma or (math.pow(dimension, 0.5)) / 14
         self.factorial = math.factorial(dimension)
         self.bar = tqdm(total=self.number, desc='Anti-' + str(self.dimension))
@@ -36,12 +36,15 @@ class Anti():
     def __generate_point(self, normal_distribution_value):
         while True:
             array = np.empty(self.dimension, dtype=float)
-            max_value = normal_distribution_value / self.dimension
-            sigma_offset = 1 if max_value > 0.50 else 0
+            value_in_axis = normal_distribution_value / self.dimension
+            boundary = 1 if value_in_axis > 0.50 else 0
+            interval = abs(boundary - value_in_axis)
+            low = boundary if boundary == 0 else value_in_axis - interval
+            high = boundary if boundary == 1 else value_in_axis + interval
             sum = 0
             count = 0
             while count < self.dimension - 1:
-                random_value = np.random.random_sample() * abs(sigma_offset - (max_value)) * 2
+                random_value = np.random.uniform(low, high)
                 if random_value < 1:
                     array[count] = random_value
                     sum += random_value

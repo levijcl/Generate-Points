@@ -1,12 +1,12 @@
 import numpy as np
-import math 
+import math
 class PointGenerate():
     def __init__(self, number, dimension, sigma, mean=None):
         self.number = number
         self.dimension = dimension
         self.mean = mean or dimension / 2
         self.sigma = sigma
-        self.factorial = math.factorial(dimension)
+        self.factorial = math.factorial(dimension) / 2
 
     def generate_normal_distribution_arr(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -22,28 +22,6 @@ class PointGenerate():
             noraml_distribution_arr = np.append(noraml_distribution_arr, added_noraml_distribution_arr)
         return noraml_distribution_arr
 
-    # def generate_point(self, normal_distribution_value):
-    #     while True:
-    #         array = np.empty(self.dimension, dtype=float)
-    #         value_in_axis = normal_distribution_value / self.dimension
-    #         boundary = 1 if value_in_axis > 0.50 else 0
-    #         interval = abs(boundary - value_in_axis)
-    #         low = boundary if boundary == 0 else value_in_axis - interval
-    #         high = boundary if boundary == 1 else value_in_axis + interval
-    #         sum = 0
-    #         count = 0
-    #         while count < self.dimension - 1:
-    #             random_value = np.random.uniform(low, high)
-    #             if random_value < 1:
-    #                 array[count] = random_value
-    #                 sum += random_value
-    #                 count += 1
-    #             else:
-    #                 continue
-    #         array[self.dimension - 1] = normal_distribution_value - sum
-    #         if np.all(array < 1) and np.all(array >= 0):
-    #             break
-    #     return array
     def generate_noraml_point(self, normal_distribution_value):
         while True:
             array = np.empty(self.dimension, dtype=float)
@@ -68,40 +46,38 @@ class PointGenerate():
         return array
 
     def shuffle(self, point_arr):
-            rand = np.random.randint(0, self.factorial)
-            point_arr[::-1].sort()
-            order_list = []
-            shuffled_arr = []
+        rand = np.random.randint(0, self.factorial)
+        point_arr = list(point_arr)
+        sort_point = point_arr[:]
+        sort_point.sort()
+        sort_point = sort_point[::-1]
 
-            for i in range(1, self.dimension):
-                fac = math.factorial(self.dimension - i)
-                order = int(rand / fac)
-                order_list.append(order)
-                rand = rand % fac
-            
-            index_order = []
-            pick_order = []
-            for i in range(0, self.dimension):
-                pick_order.append(i)
-            
-            for i in range(0, len(order_list)):
-                index = order_list[i]
-                index_order.append(pick_order[index])
-                pick_order.pop(index)
+        order_list = []
+        shuffled_arr = np.full(self.dimension, -1, dtype=float)
 
-            ready_to_pop = []
-            for i in range(0, self.dimension):
-                ready_to_pop.append(i)
+        for i in range(1, self.dimension - 1):
+            fac = math.factorial(self.dimension - i) / 2
+            order = int(rand / fac)
+            order_list.append(order)
+            rand = rand % fac
 
-            for index, item in enumerate(index_order):
-                ready_to_pop.pop(ready_to_pop.index(item))
+        order_list = order_list[::-1]
+        for i in range(0, len(order_list)):
+            for j in range(i + 1 , len(order_list)):
+                if order_list[i] >= order_list[j]:
+                    order_list[i] = order_list[i] +1
+        order_list = order_list[::-1]
 
-            index_order.append(ready_to_pop[0])
+        for index, value in enumerate(order_list):
+            target_value = sort_point.pop(0)
+            shuffled_arr[value] = target_value
+            point_arr.pop(point_arr.index(target_value))
 
-            for index in range(0, len(index_order)):
-                shuffled_arr.append(point_arr[index_order.index(index)])
+        for index, value in enumerate(shuffled_arr):
+            if value == -1:
+                shuffled_arr[index] = point_arr.pop(0)
 
-            return shuffled_arr
+        return shuffled_arr
 
     def generate_covariance(self, normal_distribution_value):
         value_in_axis = normal_distribution_value / self.dimension

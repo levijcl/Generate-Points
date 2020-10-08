@@ -3,10 +3,9 @@ import math
 import random
 from util import PointGenerate
 from tqdm import tqdm
-
 class Cor(PointGenerate):
     def __init__(self, number, dimension):
-        sigma = dimension / 4
+        sigma = dimension / 5
         super().__init__(number, dimension, sigma)
         self.bar = tqdm(total=self.number, desc='Cor-' + str(self.dimension))
 

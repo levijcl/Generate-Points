@@ -6,7 +6,7 @@ class PointGenerate():
         self.dimension = dimension
         self.mean = mean or dimension / 2
         self.sigma = sigma
-        self.factorial = math.factorial(dimension) / 2
+        self.factorial = math.factorial(dimension)
 
     def generate_normal_distribution_arr(self):
         noraml_distribution_arr = np.random.normal(self.mean, self.sigma, self.number)
@@ -54,20 +54,20 @@ class PointGenerate():
 
         order_list = []
         shuffled_arr = np.full(self.dimension, -1, dtype=float)
-
-        for i in range(1, self.dimension - 1):
-            fac = math.factorial(self.dimension - i) / 2
+        
+        for i in range(1, self.dimension):
+            fac = math.factorial(self.dimension - i)
             order = int(rand / fac)
             order_list.append(order)
             rand = rand % fac
-
+        print('order_list', order_list)
         order_list = order_list[::-1]
         for i in range(0, len(order_list)):
             for j in range(i + 1 , len(order_list)):
                 if order_list[i] >= order_list[j]:
                     order_list[i] = order_list[i] +1
         order_list = order_list[::-1]
-
+        print('order_list', order_list)
         for index, value in enumerate(order_list):
             target_value = sort_point.pop(0)
             shuffled_arr[value] = target_value

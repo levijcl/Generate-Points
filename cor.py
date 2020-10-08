@@ -32,5 +32,6 @@ def main():
     dimension = int(input("dimension:"))
     cor = Cor(number, dimension)
     cor.generate()
+
 if __name__ == "__main__":
     main()

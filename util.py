@@ -60,14 +60,12 @@ class PointGenerate():
             order = int(rand / fac)
             order_list.append(order)
             rand = rand % fac
-        print('order_list', order_list)
         order_list = order_list[::-1]
         for i in range(0, len(order_list)):
             for j in range(i + 1 , len(order_list)):
                 if order_list[i] >= order_list[j]:
                     order_list[i] = order_list[i] +1
         order_list = order_list[::-1]
-        print('order_list', order_list)
         for index, value in enumerate(order_list):
             target_value = sort_point.pop(0)
             shuffled_arr[value] = target_value

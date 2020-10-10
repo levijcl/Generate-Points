@@ -34,5 +34,6 @@ def main():
     dimension = int(input("dimension:"))
     anti = Anti(number, dimension)
     anti.generate()
+
 if __name__ == "__main__":
     main()

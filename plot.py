@@ -79,6 +79,6 @@ def generate_2d(m, dimension=1):
         data.append(arr_2d)
     return data
 
-# m = read_file('/Users/chiangchanglin/Desktop/localSkyline-30000.csv')
-# data = generate_2d(m, 12)
-# plot_mosaic(data)
+m = read_file('/Users/chiangchanglin/Desktop/localSkyline-54000.csv')
+data = generate_2d(m, 60)
+plot_mosaic(data)
